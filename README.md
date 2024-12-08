@@ -1,4 +1,4 @@
-# Tic Tac Toe: A Complete Guide
+# Tic Tac Toe: A Complete Coding Guide
 
 ## Table of Contents
 1. Introduction to Tic Tac Toe
