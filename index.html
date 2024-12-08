@@ -6,12 +6,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="gameContainer">
-    <h3>Game Time</h3>
+<div class="game-container">
+    <h3>Tic Tac Toe</h3>
+    <div id="player-turn" class="player-turn">Player 1's Turn</div>
 
-
+    <div id="gameboard" class="gameboard">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+    </div>
+    <div id="game-result" class="game-result"></div>
+    <button id="startButton" class="start-btn">Start</button>
+    <button id="restart-btn" class="restart-btn">Restart Game</button>
 </div>
+<script src="JS/game.js"></script>
 
-<script src="script.js"></script>
 </body>
 </html>
