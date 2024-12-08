@@ -52,6 +52,66 @@ class Player {
     }
 }
 
+// Confetti and Sound Celebration Module
+const Celebration = (() => {
+    // Confetti options
+    const confettiOptions = {
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+    };
+
+    // Sound effect for winning
+    const winSound = new Audio('https://www.soundjay.com/misc/sounds/success-celebration-01.mp3');
+
+    // Create a function to trigger celebration
+    const celebrate = (winner) => {
+        // Play winning sound
+        winSound.play();
+
+        // Trigger confetti
+        confetti(confettiOptions);
+
+        // Create a celebration banner
+        createCelebrationBanner(winner);
+    };
+
+    // Create a dynamic celebration banner
+    const createCelebrationBanner = (winner) => {
+        // Remove any existing banners
+        const existingBanner = document.getElementById('celebration-banner');
+        if (existingBanner) {
+            existingBanner.remove();
+        }
+
+        // Create new banner
+        const banner = document.createElement('div');
+        banner.id = 'celebration-banner';
+        banner.style.position = 'fixed';
+        banner.style.top = '50%';
+        banner.style.left = '50%';
+        banner.style.transform = 'translate(-50%, -50%)';
+        banner.style.backgroundColor = '#4caf50';
+        banner.style.color = 'white';
+        banner.style.padding = '20px';
+        banner.style.borderRadius = '10px';
+        banner.style.zIndex = '1000';
+        banner.style.fontSize = '2rem';
+        banner.textContent = `${winner} Wins!`;
+
+        // Add to body
+        document.body.appendChild(banner);
+
+        // Remove banner after 3 seconds
+        setTimeout(() => {
+            banner.remove();
+        }, 3000);
+    };
+
+    return { celebrate };
+})();
+
+
 // Game controller module
 const game = (() => {
     const board = Gameboard();
@@ -70,6 +130,11 @@ const game = (() => {
         getResultElement.textContent = '';
         board.resetBoard();
         renderGameBoard();
+
+        const existingBanner = document.getElementById('celebration-banner');
+        if (existingBanner) {
+            existingBanner.remove();
+        }
     };
 
     const handleCellClick = (index) => {
@@ -85,6 +150,7 @@ const game = (() => {
             const winningMark = board.checkWin();
             if (winningMark){
                 getResultElement.textContent = `${currentPlayer.name} wins!`;
+                Celebration.celebrate(currentPlayer.name);
                 return;
             }
 
@@ -135,8 +201,12 @@ const player1 = new Player('Player 1', 'X');
 const player2 = new Player('Player 2', 'O');
 
 document.addEventListener('DOMContentLoaded', () => {
-    const startButton = document.getElementById('startButton');
 
+    const confettiScript = document.createElement('script');
+    confettiScript.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js';
+    document.head.appendChild(confettiScript);
+
+    const startButton = document.getElementById('startButton');
     if (startButton) {
         startButton.addEventListener('click', () => {
             game.initEventListeners();
@@ -146,4 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Start button element not found!");
     }
 });
+
+
 

@@ -17,6 +17,10 @@ h3 {
     background-color: white;
 }
 
+.game-result {
+    background-color: white;
+}
+
 .game-container {
     text-align: center;
     background-color: white;
@@ -84,4 +88,10 @@ h3 {
 
 .restart-btn:hover {
     background-color: #45a049;
+}
+
+.confetti {
+    will-change: transform;
+    transform: translate(0, 0);
+    height: 100vh;
 }
